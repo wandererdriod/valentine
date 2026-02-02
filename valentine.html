@@ -6,95 +6,111 @@
 <title>Will You Be My Valentine? 💖</title>
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-        font-family: 'Segoe UI', sans-serif;
-        overflow: hidden;
+    body{
+        margin:0;
+        height:100vh;
+        background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+        font-family:sans-serif;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+        overflow:hidden;
+        text-align:center;
     }
 
-    .container {
-        text-align: center;
-        background: white;
-        padding: 50px;
-        border-radius: 20px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        position: relative;
+    h1{
+        color:#ff4d6d;
+        margin-bottom:40px;
+        font-size:32px;
     }
 
-    h1 {
-        font-size: 36px;
-        margin-bottom: 40px;
-        color: #ff4d6d;
+    .buttons{
+        position:relative;
+        width:300px;
+        height:120px;
     }
 
-    button {
-        font-size: 20px;
-        padding: 15px 35px;
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: 0.2s;
-        position: absolute;
+    button{
+        position:absolute;
+        padding:15px 30px;
+        font-size:18px;
+        border:none;
+        border-radius:10px;
+        cursor:pointer;
     }
 
-    #yesBtn {
-        background-color: #ff4d6d;
-        color: white;
-        left: 30%;
-        top: 60%;
+    #yesBtn{
+        left:30px;
+        top:40px;
+        background:#ff4d6d;
+        color:white;
+        z-index:2;
     }
 
-    #noBtn {
-        background-color: #999;
-        color: white;
-        left: 55%;
-        top: 60%;
+    #noBtn{
+        left:160px;
+        top:40px;
+        background:#888;
+        color:white;
+        z-index:2;
+        transition:0.2s;
     }
 
-    .message {
-        display: none;
-        font-size: 28px;
-        color: #ff4d6d;
-        margin-top: 20px;
+    #message{
+        display:none;
+        margin-top:30px;
+        font-size:26px;
+        color:#ff4d6d;
+        font-weight:bold;
     }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h1>Will you be my Valentine? 💘</h1>
+<h1>Will you be my Valentine? 💘</h1>
+
+<div class="buttons">
     <button id="yesBtn">Yes 💖</button>
     <button id="noBtn">No 🙈</button>
-    <div class="message" id="message">
-        Yaaay!! I knew it! 💕 See you on our date! 😘
-    </div>
 </div>
 
+<div id="message">Yaaay!! Bembang ka saken! 💕 See you on our date! 😘</div>
+
 <script>
-    const noBtn = document.getElementById('noBtn');
-    const yesBtn = document.getElementById('yesBtn');
-    const message = document.getElementById('message');
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
+const container = document.querySelector(".buttons");
 
-    // Make the NO button run away
-    noBtn.addEventListener('mouseover', () => {
-        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-        noBtn.style.left = ${x}px;
-        noBtn.style.top = ${y}px;
-    });
+// Function to move NO button
+function moveNoButton() {
+    const maxX = container.clientWidth - noBtn.offsetWidth;
+    const maxY = container.clientHeight - noBtn.offsetHeight;
 
-    // When YES is clicked
-    yesBtn.addEventListener('click', () => {
-        message.style.display = 'block';
-        yesBtn.style.display = 'none';
-        noBtn.style.display = 'none';
-    });
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+}
+
+// Desktop: mouse near
+noBtn.addEventListener("mouseenter", moveNoButton);
+
+// Mobile: touch near
+noBtn.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    moveNoButton();
+});
+
+// YES click
+yesBtn.addEventListener("click", function(){
+    message.style.display = "block";
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+});
 </script>
 
 </body>
